@@ -1,4 +1,4 @@
-from fastapi import FastAPI, UploadFile, File
+from fastapi import FastAPI, UploadFile, File, Form
 import fitz
 import ollama
 
@@ -7,18 +7,32 @@ app = FastAPI()
 
 @app.get("/")
 def home():
-    """Check that the Resume Analyzer backend is running."""
+    """
+    Checks whether the Resume Analyzer backend is running.
+
+    Returns a simple message to confirm that the API is working.
+    """
     return {"message": "Resume Analyzer Backend is running!"}
 
 
 def extract_text_from_pdf(contents):
-    """Extract text from all pages of an uploaded PDF."""
+    """
+    Extracts text from the uploaded PDF.
 
+    The function goes through each page of the PDF and
+    combines all the extracted text into one string.
+
+    Args:
+        contents: The uploaded PDF file contents.
+
+    Returns:
+        The complete text extracted from the PDF.
+    """
     pdf = fitz.open(stream=contents, filetype="pdf")
 
     text = ""
 
-    # Extract and combine text from each page.
+    # Go through each page and collect its text.
     for page in pdf:
         text += page.get_text()
 
@@ -28,31 +42,52 @@ def extract_text_from_pdf(contents):
 
 
 @app.post("/upload-resume")
-async def upload_resume(file: UploadFile = File(...)):
+async def upload_resume(
+    file: UploadFile = File(...),
+    job_description: str = Form(...)
+):
     """
-    Upload a resume PDF, extract its text,
-    and analyze it using the Qwen3 model.
+    Uploads a resume and compares it with the given job description.
+
+    The function extracts the text from the resume and sends
+    both the resume and job description to Qwen3 through Ollama.
+
+    The AI analysis includes the match score, matching skills,
+    missing skills, strengths, and suggestions for improvement.
+
+    Args:
+        file: The resume PDF uploaded by the user.
+        job_description: The job description entered by the user.
+
+    Returns:
+        The resume filename, extracted text, job description,
+        and AI-generated analysis.
     """
 
-    # Read the uploaded PDF file.
+    # Read the uploaded resume PDF.
     contents = await file.read()
 
-    # Extract text from the uploaded resume.
+    # Extract text from the resume.
     text = extract_text_from_pdf(contents)
 
-    # Send the extracted resume text to Qwen3 for analysis.
+    # Send the resume and job description to Qwen3 for analysis.
     response = ollama.chat(
         model="qwen3:8b",
         messages=[
             {
                 "role": "user",
                 "content": f"""
-Analyze this resume and provide:
-1. Resume score out of 100
-2. Strengths
-3. Weaknesses
-4. Missing skills
-5. Suggestions for improvement
+Compare this resume with the given job description and provide:
+
+1. Match score out of 100
+2. Skills that match the job description
+3. Skills missing from the resume
+4. Strengths of the resume for this job
+5. Areas that need improvement
+6. Suggestions to make the resume better suited for this job
+
+Job Description:
+{job_description}
 
 Resume:
 {text}
@@ -67,5 +102,6 @@ Resume:
     return {
         "filename": file.filename,
         "text": text,
+        "job_description": job_description,
         "analysis": analysis
     }
