@@ -17,7 +17,7 @@ def home():
 
 def extract_text_from_pdf(contents):
     """
-    Extracts text from the uploaded PDF.
+    Extracts text from an uploaded PDF.
 
     The function goes through each page of the PDF and
     combines all the extracted text into one string.
@@ -44,23 +44,32 @@ def extract_text_from_pdf(contents):
 @app.post("/upload-resume")
 async def upload_resume(
     file: UploadFile = File(...),
-    job_description: str = Form(...)
+    job_description: str | None = Form(None),
+    job_description_file: UploadFile | None = File(None)
 ):
     """
-    Uploads a resume and compares it with the given job description.
+    Uploads a resume and generates an AI-based analysis.
 
-    The function extracts the text from the resume and sends
-    both the resume and job description to Qwen3 through Ollama.
+    The function extracts text from the uploaded resume and
+    sends it to Qwen3 through Ollama.
 
-    The AI analysis includes the match score, matching skills,
-    missing skills, strengths, and suggestions for improvement.
+    The job description is optional. The user can either
+    paste the job description as text or upload it as a PDF.
+
+    If a job description is provided, the AI compares the
+    resume with the job description and identifies matching
+    and missing skills.
+
+    The analysis also includes an ATS compatibility assessment,
+    resume strengths, weaknesses, and suggestions for improvement.
 
     Args:
         file: The resume PDF uploaded by the user.
-        job_description: The job description entered by the user.
+        job_description: An optional job description pasted by the user.
+        job_description_file: An optional job description uploaded as a PDF.
 
     Returns:
-        The resume filename, extracted text, job description,
+        The resume filename, extracted resume text, job description,
         and AI-generated analysis.
     """
 
@@ -70,28 +79,62 @@ async def upload_resume(
     # Extract text from the resume.
     text = extract_text_from_pdf(contents)
 
-    # Send the resume and job description to Qwen3 for analysis.
+    # Start with the pasted job description, if one was provided.
+    final_job_description = job_description
+
+    # If a JD PDF was uploaded, extract its text.
+    if job_description_file:
+        jd_contents = await job_description_file.read()
+        final_job_description = extract_text_from_pdf(jd_contents)
+
+    # Create the basic resume analysis instructions.
+    analysis_request = f"""
+Analyze this resume and provide:
+
+1. Overall resume score out of 100
+
+2. ATS compatibility assessment
+   - Check whether the resume is easy for an ATS to read.
+   - Check the use of relevant keywords.
+   - Check whether the sections and information are clearly structured.
+   - Point out any formatting or content issues that may affect ATS compatibility.
+
+3. Strengths
+
+4. Weaknesses
+
+5. Missing skills or important keywords
+
+6. Suggestions for improvement
+"""
+
+    # Add job comparison only when a job description is provided.
+    if final_job_description:
+        analysis_request += f"""
+7. Resume and job description match score out of 100
+
+8. Skills that match the job description
+
+9. Skills missing for the job description
+
+Job Description:
+{final_job_description}
+"""
+
+    # Add the resume text to the AI prompt.
+    analysis_request += f"""
+
+Resume:
+{text}
+"""
+
+    # Send the resume and analysis instructions to Qwen3.
     response = ollama.chat(
         model="qwen3:8b",
         messages=[
             {
                 "role": "user",
-                "content": f"""
-Compare this resume with the given job description and provide:
-
-1. Match score out of 100
-2. Skills that match the job description
-3. Skills missing from the resume
-4. Strengths of the resume for this job
-5. Areas that need improvement
-6. Suggestions to make the resume better suited for this job
-
-Job Description:
-{job_description}
-
-Resume:
-{text}
-"""
+                "content": analysis_request
             }
         ]
     )
@@ -102,6 +145,6 @@ Resume:
     return {
         "filename": file.filename,
         "text": text,
-        "job_description": job_description,
+        "job_description": final_job_description,
         "analysis": analysis
     }
