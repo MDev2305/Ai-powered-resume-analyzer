@@ -1,0 +1,453 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  color: #24264a;
+  background: linear-gradient(135deg, #f8f8ff, #eef0ff, #f8f2ff);
+}
+
+/* Header */
+
+.header {
+  height: 75px;
+  background: white;
+  border-bottom: 1px solid #e5e5f0;
+  display: flex;
+  align-items: center;
+  padding: 0 40px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.brand-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 9px;
+  background: #eee8ff;
+  color: #7045df;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Main section */
+
+.main {
+  padding: 55px 20px 70px;
+}
+
+.intro {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.intro h1 {
+  margin: 0;
+  font-size: 40px;
+  color: #171b3d;
+}
+
+.intro p {
+  margin-top: 10px;
+  color: #666d86;
+}
+
+/* Analyzer card */
+
+.analyzer-card {
+  max-width: 780px;
+  margin: auto;
+  padding: 35px;
+  background: white;
+  border: 1px solid #e3e2ed;
+  border-radius: 18px;
+  box-shadow: 0 12px 35px rgba(60, 50, 100, 0.08);
+}
+
+.section h2 {
+  margin: 0;
+  font-size: 20px;
+  color: #303568;
+}
+
+.icon {
+  color: #7045df;
+  margin-right: 7px;
+}
+
+.optional {
+  margin-left: 6px;
+  color: #888da0;
+  font-size: 14px;
+  font-weight: normal;
+}
+
+.hint {
+  margin: 8px 0 18px;
+  color: #70768b;
+  font-size: 14px;
+}
+
+/* Resume upload */
+
+.upload-box {
+  padding: 30px;
+  text-align: center;
+  border: 2px dashed #bda5f5;
+  border-radius: 14px;
+  background: #fcfaff;
+}
+
+.upload-icon {
+  width: 48px;
+  height: 48px;
+  margin: auto;
+  border-radius: 50%;
+  background: #eee8ff;
+  color: #7045df;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+}
+
+.upload-title {
+  margin: 12px 0 5px;
+  font-weight: 600;
+}
+
+.upload-subtitle {
+  margin: 0 0 12px;
+  color: #858a9d;
+  font-size: 13px;
+}
+
+.file-name {
+  margin-top: 12px;
+  color: #5f3dc4;
+  font-size: 13px;
+}
+
+/* Optional JD section */
+
+.divider,
+.or-divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 28px 0;
+  color: #858a9d;
+  font-size: 13px;
+}
+
+.divider::before,
+.divider::after,
+.or-divider::before,
+.or-divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: #e5e4ed;
+}
+
+.divider span,
+.or-divider span {
+  padding: 5px 11px;
+  border-radius: 20px;
+  background: #eeeaff;
+  color: #7045df;
+}
+
+textarea {
+  width: 100%;
+  height: 140px;
+  padding: 14px;
+  border: 1px solid #d7d6e1;
+  border-radius: 11px;
+  resize: vertical;
+  font-family: inherit;
+  font-size: 14px;
+}
+
+textarea:focus {
+  outline: none;
+  border-color: #8b63e8;
+}
+
+.jd-upload {
+  padding: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid #ddd9eb;
+  border-radius: 11px;
+  background: #faf9ff;
+}
+
+.jd-upload-text {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.pdf-icon {
+  font-size: 22px;
+}
+
+.jd-upload strong {
+  font-size: 14px;
+}
+
+.jd-upload p {
+  margin: 3px 0 0;
+  color: #888da0;
+  font-size: 12px;
+}
+
+/* Error message */
+
+.error-message {
+  margin-top: 18px;
+  padding: 12px 14px;
+  border-radius: 9px;
+  background: #fff0f0;
+  color: #b33a3a;
+  font-size: 13px;
+}
+
+/* Analyze button */
+
+.analyze-button {
+  width: 100%;
+  margin-top: 28px;
+  padding: 15px;
+  border: none;
+  border-radius: 10px;
+  background: linear-gradient(90deg, #7045df, #4d83e8);
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.analyze-button:hover {
+  opacity: 0.9;
+}
+
+.analyze-button:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+/* Results page */
+
+.results-page {
+  width: 100%;
+  max-width: 1000px;
+  margin: auto;
+  padding: 40px 20px 70px;
+}
+
+.back-button {
+  border: none;
+  background: transparent;
+  color: #7045df;
+  font-size: 14px;
+  cursor: pointer;
+  padding: 0;
+  margin-bottom: 30px;
+}
+
+.back-button:hover {
+  color: #5030b0;
+}
+
+/* Results heading */
+
+.results-intro {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.results-label {
+  margin: 0;
+  color: #7045df;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.8px;
+}
+
+.results-intro h1 {
+  margin: 10px 0;
+  font-size: 38px;
+  color: #171b3d;
+}
+
+.results-intro > p:last-child {
+  color: #70768b;
+}
+
+/* Analysis card */
+
+.analysis-card {
+  width: 100%;
+  background: white;
+  border: 1px solid #e3e2ed;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 12px 35px rgba(60, 50, 100, 0.08);
+}
+
+.analysis-header {
+  padding: 20px 24px;
+  border-bottom: 1px solid #eee;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.analysis-header h2 {
+  margin: 0;
+  color: #7045df;
+  font-size: 20px;
+}
+
+.analysis-header span {
+  color: #858aa2;
+  font-size: 13px;
+}
+
+/* AI analysis */
+
+.analysis-content {
+  width: 100%;
+  max-width: 100%;
+  padding: 32px;
+  color: #3f4254;
+  font-size: 15px;
+  line-height: 1.7;
+  text-align: left;
+  overflow-wrap: anywhere;
+  word-break: normal;
+}
+
+/* Headings */
+
+.analysis-content h1,
+.analysis-content h2,
+.analysis-content h3,
+.analysis-content h4 {
+  color: #303568;
+  margin-top: 28px;
+  margin-bottom: 12px;
+}
+
+.analysis-content h1 {
+  font-size: 24px;
+}
+
+.analysis-content h2 {
+  font-size: 21px;
+}
+
+.analysis-content h3 {
+  font-size: 19px;
+}
+
+.analysis-content h4 {
+  font-size: 17px;
+}
+
+.analysis-content > h1:first-child,
+.analysis-content > h2:first-child,
+.analysis-content > h3:first-child {
+  margin-top: 0;
+}
+
+/* Paragraphs */
+
+.analysis-content p {
+  margin: 10px 0;
+}
+
+/* Lists */
+
+.analysis-content ul,
+.analysis-content ol {
+  padding-left: 24px;
+  margin: 10px 0 20px;
+}
+
+.analysis-content li {
+  margin-bottom: 7px;
+}
+
+/* Bold text */
+
+.analysis-content strong {
+  color: #303568;
+}
+
+/* Dividers */
+
+.analysis-content hr {
+  border: none;
+  border-top: 1px solid #e9e8f0;
+  margin: 25px 0;
+}
+
+/* Mobile */
+
+@media (max-width: 600px) {
+
+  .header {
+    padding: 0 20px;
+  }
+
+  .brand {
+    font-size: 17px;
+  }
+
+  .results-page {
+    padding: 30px 12px 50px;
+  }
+
+  .results-intro h1 {
+    font-size: 30px;
+  }
+
+  .analysis-header {
+    padding: 17px;
+  }
+
+  .analysis-header span {
+    font-size: 11px;
+  }
+
+  .analysis-content {
+    padding: 20px;
+    font-size: 14px;
+  }
+
+  .analysis-content h1 {
+    font-size: 21px;
+  }
+
+  .analysis-content h2 {
+    font-size: 19px;
+  }
+
+  .analysis-content h3 {
+    font-size: 17px;
+  }
+
+}
