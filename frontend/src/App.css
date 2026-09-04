@@ -9,6 +9,7 @@ body {
   background: linear-gradient(135deg, #f8f8ff, #eef0ff, #f8f2ff);
 }
 
+
 /* Header */
 
 .header {
@@ -39,6 +40,7 @@ body {
   justify-content: center;
 }
 
+
 /* Main section */
 
 .main {
@@ -60,6 +62,7 @@ body {
   margin-top: 10px;
   color: #666d86;
 }
+
 
 /* Analyzer card */
 
@@ -96,6 +99,7 @@ body {
   color: #70768b;
   font-size: 14px;
 }
+
 
 /* Resume upload */
 
@@ -136,6 +140,7 @@ body {
   color: #5f3dc4;
   font-size: 13px;
 }
+
 
 /* Optional JD section */
 
@@ -213,6 +218,7 @@ textarea:focus {
   font-size: 12px;
 }
 
+
 /* Error message */
 
 .error-message {
@@ -223,6 +229,7 @@ textarea:focus {
   color: #b33a3a;
   font-size: 13px;
 }
+
 
 /* Analyze button */
 
@@ -248,6 +255,7 @@ textarea:focus {
   cursor: not-allowed;
 }
 
+
 /* Results page */
 
 .results-page {
@@ -270,6 +278,7 @@ textarea:focus {
 .back-button:hover {
   color: #5030b0;
 }
+
 
 /* Results heading */
 
@@ -295,6 +304,7 @@ textarea:focus {
 .results-intro > p:last-child {
   color: #70768b;
 }
+
 
 /* Analysis card */
 
@@ -326,6 +336,7 @@ textarea:focus {
   font-size: 13px;
 }
 
+
 /* AI analysis */
 
 .analysis-content {
@@ -340,44 +351,95 @@ textarea:focus {
   word-break: normal;
 }
 
-/* Headings */
 
-.analysis-content h1,
-.analysis-content h2,
-.analysis-content h3,
-.analysis-content h4 {
+/* Score cards */
+
+.score-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
+  margin-bottom: 30px;
+}
+
+.score-card {
+  padding: 24px 20px;
+  background: #f8f6ff;
+  border: 1px solid #e5defa;
+  border-radius: 15px;
+  text-align: center;
+}
+
+.score-card span {
+  display: block;
+  margin-bottom: 10px;
+  color: #70768b;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.score-card strong {
+  display: block;
+  margin-bottom: 15px;
   color: #303568;
-  margin-top: 28px;
-  margin-bottom: 12px;
+  font-size: 30px;
+  font-weight: 700;
 }
 
-.analysis-content h1 {
-  font-size: 24px;
+
+/* Overall Resume Score */
+
+.overall-score-card {
+  margin-bottom: 18px;
+  padding: 28px 24px;
+  background: #f6f5ff;
+  border: 1px solid #e2ddff;
+  border-radius: 15px;
+  text-align: center;
 }
 
-.analysis-content h2 {
-  font-size: 21px;
+.overall-score-card span {
+  display: block;
+  margin-bottom: 10px;
+  color: #5d4bc4;
+  font-size: 15px;
+  font-weight: 600;
 }
+
+.overall-score-card strong {
+  display: block;
+  margin-bottom: 15px;
+  color: #5d4bc4;
+  font-size: 42px;
+  font-weight: 700;
+}
+
+.overall-score-card .score-bar {
+  max-width: 500px;
+  margin: auto;
+}
+
+
+/* Analysis section headings */
 
 .analysis-content h3 {
+  margin-top: 32px;
+  margin-bottom: 12px;
+  color: #303568;
   font-size: 19px;
 }
 
-.analysis-content h4 {
-  font-size: 17px;
-}
-
-.analysis-content > h1:first-child,
-.analysis-content > h2:first-child,
-.analysis-content > h3:first-child {
+.analysis-content h3:first-child {
   margin-top: 0;
 }
+
 
 /* Paragraphs */
 
 .analysis-content p {
   margin: 10px 0;
+  line-height: 1.8;
 }
+
 
 /* Lists */
 
@@ -388,14 +450,17 @@ textarea:focus {
 }
 
 .analysis-content li {
-  margin-bottom: 7px;
+  margin-bottom: 10px;
+  line-height: 1.7;
 }
+
 
 /* Bold text */
 
 .analysis-content strong {
   color: #303568;
 }
+
 
 /* Dividers */
 
@@ -404,6 +469,181 @@ textarea:focus {
   border-top: 1px solid #e9e8f0;
   margin: 25px 0;
 }
+
+
+/* Structured analysis sections */
+
+.result-section {
+  margin-top: 24px;
+  padding: 24px;
+  background: #faf9ff;
+  border: 1px solid #ebe7f7;
+  border-radius: 14px;
+}
+
+.result-section h3 {
+  margin: 0 0 14px;
+  color: #303568;
+  font-size: 19px;
+}
+
+.result-section h4 {
+  margin: 22px 0 12px;
+  color: #303568;
+  font-size: 16px;
+}
+
+.result-section p {
+  margin: 0;
+  line-height: 1.8;
+}
+
+
+/* Score progress bar */
+
+.score-bar {
+  width: 100%;
+  height: 7px;
+  background: #e5e5ec;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.score-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #7045df, #4d83e8);
+  border-radius: 10px;
+}
+
+
+/* Skill chips */
+
+.skill-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 9px;
+}
+
+.skill-chip {
+  display: inline-block;
+  padding: 7px 12px;
+  background: #ffffff;
+  border: 1px solid #ddd8ee;
+  border-radius: 20px;
+  color: #5f3dc4;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+
+/* Lists inside result sections */
+
+.result-section ul {
+  margin: 0;
+  padding-left: 22px;
+}
+
+.result-section li {
+  margin-bottom: 10px;
+  line-height: 1.7;
+}
+
+
+/* Result section colors */
+
+/* ATS Feedback */
+
+.result-section:nth-child(2) {
+  background: #f4f8ff;
+  border-color: #dce9ff;
+}
+
+.result-section:nth-child(2) h3 {
+  color: #3569b8;
+}
+
+
+/* Strengths */
+
+.result-section:nth-child(3) {
+  background: #f3faf6;
+  border-color: #d9eee2;
+}
+
+.result-section:nth-child(3) h3 {
+  color: #287a52;
+}
+
+
+/* Weaknesses */
+
+.result-section:nth-child(4) {
+  background: #fff8f0;
+  border-color: #f5e2c9;
+}
+
+.result-section:nth-child(4) h3 {
+  color: #b66a18;
+}
+
+
+/* Missing Skills */
+
+.result-section:nth-child(5) {
+  background: #fff5f5;
+  border-color: #f3dada;
+}
+
+.result-section:nth-child(5) h3 {
+  color: #b34b4b;
+}
+
+
+/* Job Description Match */
+
+.result-section:nth-child(6) {
+  background: #f6f5ff;
+  border-color: #e2ddff;
+}
+
+.result-section:nth-child(6) h3 {
+  color: #5d4bc4;
+}
+
+
+/* Suggestions */
+
+.result-section:nth-child(7) {
+  background: #f4faf6;
+  border-color: #dceee2;
+}
+
+.result-section:nth-child(7) h3 {
+  color: #397653;
+}
+
+
+/* Supporting score colors */
+
+.score-card:nth-child(1) {
+  background: #f4f8ff;
+  border-color: #dce9ff;
+}
+
+.score-card:nth-child(1) strong {
+  color: #3569b8;
+}
+
+
+.score-card:nth-child(2) {
+  background: #f3faf6;
+  border-color: #d9eee2;
+}
+
+.score-card:nth-child(2) strong {
+  color: #287a52;
+}
+
 
 /* Mobile */
 
@@ -448,6 +688,27 @@ textarea:focus {
 
   .analysis-content h3 {
     font-size: 17px;
+  }
+
+  .score-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .score-card {
+    padding: 20px;
+  }
+
+  .overall-score-card {
+    padding: 24px 20px;
+  }
+
+  .overall-score-card strong {
+    font-size: 36px;
+  }
+
+  .result-section {
+    padding: 20px;
   }
 
 }
