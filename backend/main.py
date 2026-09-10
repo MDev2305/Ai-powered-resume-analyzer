@@ -3,6 +3,7 @@ import fitz
 import ollama
 from fastapi.middleware.cors import CORSMiddleware
 import json
+import os
 
 app = FastAPI()
 
@@ -244,15 +245,20 @@ Resume:
 
     try:
         # Send the resume and analysis instructions to Qwen3.
-        response = ollama.chat(
-            model="qwen3:8b",
-            messages=[
-                {
-                    "role": "user",
-                    "content": analysis_request
-                }
-            ]
+
+        client = ollama.Client(
+          host=os.getenv("OLLAMA_HOST", "http://127.0.0.1:11434")
         )
+
+        response = client.chat(
+          model="qwen3:8b",
+          messages=[
+             {
+               "role": "user",
+               "content": analysis_request
+             }
+    ]
+)
 
     except Exception:
         raise HTTPException(
