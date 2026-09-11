@@ -180,7 +180,7 @@ def test_upload_resume_without_job_description():
     pdf_contents = create_test_pdf("Test resume content")
 
     # Replace the AI model call with a fake response.
-    main.ollama.chat = lambda *args, **kwargs: fake_ollama_response()
+    main.ollama_client.chat = lambda *args, **kwargs: fake_ollama_response()
 
     # Upload the resume without providing a job description.
     response = client.post(
@@ -220,7 +220,7 @@ def test_upload_resume_with_pasted_job_description():
     )
 
     # Replace the AI model call with a fake response.
-    main.ollama.chat = (
+    main.ollama_client.chat = (
         lambda *args, **kwargs: fake_ollama_response_with_jd()
     )
 
@@ -277,7 +277,7 @@ def test_upload_resume_with_job_description_pdf():
     )
 
     # Replace the AI model call with a fake response.
-    main.ollama.chat = (
+    main.ollama_client.chat = (
         lambda *args, **kwargs: fake_ollama_response_with_jd()
     )
 
@@ -320,7 +320,7 @@ def test_response_contains_resume_filename():
     pdf_contents = create_test_pdf("Test resume content")
 
     # Replace the AI model call with a fake response.
-    main.ollama.chat = lambda *args, **kwargs: fake_ollama_response()
+    main.ollama_client.chat = lambda *args, **kwargs: fake_ollama_response()
 
     # Upload the test resume.
     response = client.post(
@@ -353,7 +353,7 @@ def test_response_contains_extracted_resume_text():
     )
 
     # Replace the AI model call with a fake response.
-    main.ollama.chat = lambda *args, **kwargs: fake_ollama_response()
+    main.ollama_client.chat = lambda *args, **kwargs: fake_ollama_response()
 
     # Upload the resume.
     response = client.post(
@@ -384,7 +384,7 @@ def test_analysis_contains_required_resume_fields():
     pdf_contents = create_test_pdf("Test resume content")
 
     # Replace the AI model call with a fake response.
-    main.ollama.chat = lambda *args, **kwargs: fake_ollama_response()
+    main.ollama_client.chat = lambda *args, **kwargs: fake_ollama_response()
 
     # Upload the resume.
     response = client.post(
@@ -423,7 +423,7 @@ def test_analysis_contains_job_description_fields():
     )
 
     # Replace the AI model call with a fake response.
-    main.ollama.chat = (
+    main.ollama_client.chat = (
         lambda *args, **kwargs: fake_ollama_response_with_jd()
     )
 
@@ -589,7 +589,7 @@ def test_ollama_connection_error():
     def fake_ollama_error(*args, **kwargs):
         raise Exception("Ollama is not running")
 
-    main.ollama.chat = fake_ollama_error
+    main.ollama_client.chat = fake_ollama_error
 
     # Upload the resume.
     response = client.post(
@@ -632,7 +632,7 @@ def test_invalid_ai_json_response():
             }
         }
 
-    main.ollama.chat = fake_invalid_json
+    main.ollama_client.chat = fake_invalid_json
 
     # Upload the resume.
     response = client.post(

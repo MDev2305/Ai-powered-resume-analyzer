@@ -7,6 +7,10 @@ import os
 
 app = FastAPI()
 
+ollama_client = ollama.Client(
+    host=os.getenv("OLLAMA_HOST", "http://127.0.0.1:11434")
+)
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["http://localhost:5173"],
@@ -246,11 +250,7 @@ Resume:
     try:
         # Send the resume and analysis instructions to Qwen3.
 
-        client = ollama.Client(
-          host=os.getenv("OLLAMA_HOST", "http://127.0.0.1:11434")
-        )
-
-        response = client.chat(
+        response = ollama_client.chat(
           model="qwen3:8b",
           messages=[
              {
